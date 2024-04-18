@@ -9,6 +9,8 @@ int grau_do_maior_vertice(int **matriz);
 void mostra_matriz(int **matriz);
 void ler_arquivo(char *nome_arquivo, int **matriz);
 void escrever_graus_arquivo(char *nome_arquivo, int *graus, int tamanho);
+void vertices_isolados(int **matriz);
+
 
 int main()
 {
@@ -19,7 +21,7 @@ int main()
         matriz[i] = (int *)malloc(tamanho_matriz * sizeof(int));
     ler_arquivo("dados_matriz.txt", matriz);
     //mostra_matriz(matriz);
-    
+
     int *graus = (int *)malloc(tamanho_matriz * sizeof(int));
     for (i = 0; i < tamanho_matriz; i++)
         graus[i] = 0;
@@ -35,12 +37,13 @@ int main()
     }
 
     escrever_graus_arquivo("dados_grafos_graus.txt", graus, tamanho_matriz);
+    vertices_isolados(matriz);
 
     maior_grau = grau_do_maior_vertice(matriz);
-    printf("\nO vertice com maior grau é: %i", maior_grau);
+    printf("\nO vertice com maior grau: %i", maior_grau);
 
-        for (i = 0; i < tamanho_matriz; i++)
-            free(matriz[i]);
+    for (i = 0; i < tamanho_matriz; i++)
+        free(matriz[i]);
         free(matriz);
         free(graus);
 
@@ -127,4 +130,24 @@ void escrever_graus_arquivo(char *nome_arquivo, int *graus, int tamanho)
     }
 
     fclose(arquivo);
+}
+
+void vertices_isolados(int **matriz) {
+    int isolado, count = 0;
+
+    printf("Vértices isolados: \n");
+
+    for (int i = 0; i < tamanho_matriz; i++) {
+        isolado = 1;
+        for (int j = 0; j < tamanho_matriz; j++) {
+            if (matriz[i][j] != 0) { 
+                isolado = 0;
+                break;
+            }
+        }
+        if (isolado) {
+            printf("%d\n", i);
+            count++;
+        }
+    }
 }
