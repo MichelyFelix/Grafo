@@ -17,8 +17,8 @@ int main()
     int i;
     for (i = 0; i < tamanho_matriz; i++)
         matriz[i] = (int *)malloc(tamanho_matriz * sizeof(int));
-    ler_arquivo("dadosmatriz.txt", matriz);
-    mostra_matriz(matriz);
+    ler_arquivo("dados_matriz.txt", matriz);
+    //mostra_matriz(matriz);
     
     int *graus = (int *)malloc(tamanho_matriz * sizeof(int));
     for (i = 0; i < tamanho_matriz; i++)
