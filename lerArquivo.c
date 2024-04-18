@@ -2,12 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 #define tamanho_matriz 2896
+
 int min_e_max(int n, int n1);
 int grau_do_maior_vertice(int **matriz);
 void mostra_matriz(int **matriz);
 void ler_arquivo(char *nome_arquivo, int **matriz);
+void escrever_graus_arquivo(char *nome_arquivo, int *graus, int tamanho);
+
 int main()
 {
     int maior_grau;
@@ -16,10 +18,33 @@ int main()
     for (i = 0; i < tamanho_matriz; i++)
         matriz[i] = (int *)malloc(tamanho_matriz * sizeof(int));
     ler_arquivo("dadosmatriz.txt", matriz);
-     //mostra_matriz(matriz);
+    mostra_matriz(matriz);
+    
+    int *graus = (int *)malloc(tamanho_matriz * sizeof(int));
+    for (i = 0; i < tamanho_matriz; i++)
+        graus[i] = 0;
+
+    for (i = 0; i < tamanho_matriz; i++)
+    {
+        int j;
+        for (j = 0; j < tamanho_matriz; j++)
+        {
+            if (matriz[i][j] == 1)
+                graus[i]++;
+        }
+    }
+
+    escrever_graus_arquivo("dados_grafos_graus.txt", graus, tamanho_matriz);
 
     maior_grau = grau_do_maior_vertice(matriz);
-    printf("\nO vertice com maior grau eh: %i", maior_grau);
+    printf("\nO vertice com maior grau é: %i", maior_grau);
+
+        for (i = 0; i < tamanho_matriz; i++)
+            free(matriz[i]);
+        free(matriz);
+        free(graus);
+
+    return 0;
 }
 
 void ler_arquivo(char *nome_arquivo, int **matriz)
@@ -86,3 +111,20 @@ int grau_do_maior_vertice(int **matriz)
     return vertice_com_maior_grau;
 }
 
+void escrever_graus_arquivo(char *nome_arquivo, int *graus, int tamanho)
+{
+    FILE *arquivo = fopen(nome_arquivo, "w");
+    if (arquivo == NULL)
+    {
+        printf("Erro ao abrir o arquivo %s\n", nome_arquivo);
+        return;
+    }
+
+    int i;
+    for (i = 0; i < tamanho; i++)
+    {
+        fprintf(arquivo, "Vertice %d: Grau %d\n", i, graus[i]);
+    }
+
+    fclose(arquivo);
+}
