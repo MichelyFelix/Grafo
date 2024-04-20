@@ -42,6 +42,7 @@ int main()
     maior_grau = grau_do_maior_vertice(matriz);
     printf("\nO vertice com maior grau: %i", maior_grau);
 
+    vertice_sumidouro(matriz);
     for (i = 0; i < tamanho_matriz; i++)
         free(matriz[i]);
         free(matriz);
@@ -150,4 +151,22 @@ void vertices_isolados(int **matriz) {
             count++;
         }
     }
+}
+
+int vertice_sumidouro(int **matriz){
+    for(int cont = 0; cont < tamanho_matriz; cont++){
+        int sumidouro = 1;
+        for(int cont2 = 0; cont2 < tamanho_matriz; cont2++){
+            if (cont != cont2 && matriz[cont][cont2] != 0){
+                sumidouro = 0;
+                break;
+            }
+        } 
+        if(sumidouro){
+            printf("\nVertice sumidouro: %d", cont);
+            return 1;
+        }
+    }
+    printf("Nao foi encontrado vertice sumidouro!\n");
+    return 0;
 }
