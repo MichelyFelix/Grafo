@@ -10,8 +10,8 @@ void mostra_matriz(int **matriz);
 void ler_arquivo(char *nome_arquivo, int **matriz);
 void escrever_graus_arquivo(char *nome_arquivo, int *graus, int tamanho);
 void vertices_isolados(int **matriz);
-
-
+void vertice_sumidouro(int **matriz);
+void vertice_fonte(int **matriz);
 int main()
 {
     int maior_grau;
@@ -38,11 +38,12 @@ int main()
 
     escrever_graus_arquivo("dados_grafos_graus.txt", graus, tamanho_matriz);
     vertices_isolados(matriz);
-
-    maior_grau = grau_do_maior_vertice(matriz);
-    printf("\nO vertice com maior grau: %i", maior_grau);
+ maior_grau = grau_do_maior_vertice(matriz);
+   
+    printf("\nO vertice com maior grau: %i\n", maior_grau);
 
     vertice_sumidouro(matriz);
+    vertice_fonte(matriz);
     for (i = 0; i < tamanho_matriz; i++)
         free(matriz[i]);
         free(matriz);
@@ -54,7 +55,7 @@ int main()
 void ler_arquivo(char *nome_arquivo, int **matriz)
 {
     FILE *arch;
-    char linha[tamanho_matriz];
+    char linha[5792];
     char *token;
     int i = 0, j = 0;
     arch = fopen(nome_arquivo, "r");
@@ -153,20 +154,48 @@ void vertices_isolados(int **matriz) {
     }
 }
 
-int vertice_sumidouro(int **matriz){
+void vertice_sumidouro(int **matriz){
+    int aux = 0; 
+    printf("Vertice(s) sumidouros:\n");
     for(int cont = 0; cont < tamanho_matriz; cont++){
         int sumidouro = 1;
         for(int cont2 = 0; cont2 < tamanho_matriz; cont2++){
-            if (cont != cont2 && matriz[cont][cont2] != 0){
+            if (matriz[cont][cont2] != 0){
                 sumidouro = 0;
                 break;
             }
         } 
         if(sumidouro){
-            printf("\nVertice sumidouro: %d", cont);
-            return 1;
+            printf("%d\n", cont);
+            aux++;
         }
     }
-    printf("Nao foi encontrado vertice sumidouro!\n");
-    return 0;
+    if (aux == 0){ // Se aux ainda for 0, nenhum vértice sumidouro foi encontrado
+        printf("Nao foi encontrado vertice sumidouro!\n");
+    }
+}
+
+ void vertice_fonte(int **matriz){
+         int aux = 0; // Inicializa aux com 0
+    printf("Vertice(s) fonte:\n");
+    for(int cont = 0; cont < tamanho_matriz; cont++){
+        int fonte = 1;
+        for(int cont2 = 0; cont2 < tamanho_matriz; cont2++){
+            if (matriz[cont2][cont] != 0){
+                fonte = 0;
+                break;
+            }
+        } 
+        if(fonte){
+            printf("%d\n", cont);
+            aux++;
+        }
+    }
+    if (aux == 0){ // Se aux ainda for 0, nenhum vértice sumidouro foi encontrado
+        printf("Nao foi encontrado vertice sumidouro!\n");
+    }
+    } 
+
+void grafo_complementar(){
+    
 }
