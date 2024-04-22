@@ -12,6 +12,8 @@ void escrever_graus_arquivo(char *nome_arquivo, int *graus, int tamanho);
 void vertices_isolados(int **matriz);
 void vertice_sumidouro(int **matriz);
 void vertice_fonte(int **matriz);
+void grafo_complementar(int **matriz, char *nome_arquivo);
+
 int main()
 {
     int maior_grau;
@@ -44,6 +46,7 @@ int main()
 
     vertice_sumidouro(matriz);
     vertice_fonte(matriz);
+    grafo_complementar(matriz,"Matriz_complementar.txt");
     for (i = 0; i < tamanho_matriz; i++)
         free(matriz[i]);
         free(matriz);
@@ -196,6 +199,29 @@ void vertice_sumidouro(int **matriz){
     }
     } 
 
-void grafo_complementar(){
-    
+void grafo_complementar(int **matriz, char *nome_arquivo){
+    FILE *arquivo = fopen(nome_arquivo, "w");
+    if (arquivo == NULL)
+    {
+        printf("Erro ao abrir o arquivo %s\n", nome_arquivo);
+        return;
+    }
+
+    for(int i = 0; i < tamanho_matriz; i++){
+        for(int j = 0; j < tamanho_matriz; j++){
+            if (i == j) { // Verifica se é um elemento da diagonal principal
+                fprintf(arquivo, "%d ", matriz[i][j]); // Mantém o valor original
+            } else {
+                if(matriz[i][j] == 0){
+                    matriz[i][j] = 1;
+                } else {
+                    matriz[i][j] = 0;
+                }
+                fprintf(arquivo, "%d ", matriz[i][j]);
+            }
+        }
+        fprintf(arquivo, "\n");
+    }
+
+    fclose(arquivo);
 }
