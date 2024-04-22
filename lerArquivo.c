@@ -13,6 +13,7 @@ void vertices_isolados(int **matriz);
 void vertice_sumidouro(int **matriz);
 void vertice_fonte(int **matriz);
 void grafo_complementar(int **matriz, char *nome_arquivo);
+void vertice_multiplo5(int **matriz, char *nome_arquivo);
 
 int main()
 {
@@ -47,6 +48,7 @@ int main()
     vertice_sumidouro(matriz);
     vertice_fonte(matriz);
     grafo_complementar(matriz,"Matriz_complementar.txt");
+    vertice_multiplo5(matriz,"dados_grafos_gerados.txt");
     for (i = 0; i < tamanho_matriz; i++)
         free(matriz[i]);
         free(matriz);
@@ -223,5 +225,22 @@ void grafo_complementar(int **matriz, char *nome_arquivo){
         fprintf(arquivo, "\n");
     }
 
+    fclose(arquivo);
+}
+
+void vertice_multiplo5(int **matriz, char *nome_arquivo){
+    FILE *arquivo = fopen(nome_arquivo, "w");
+    if (arquivo == NULL)
+    {
+        printf("Erro ao abrir o arquivo %s\n", nome_arquivo);
+        return;
+    }
+
+    fprintf(arquivo, "Vertices multiplos de 5:\n");
+    for(int i = 0; i < tamanho_matriz; i++){
+        if(i % 5 == 0){
+            fprintf(arquivo, "%d\n", i);
+        }
+    }
     fclose(arquivo);
 }
