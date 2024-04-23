@@ -142,7 +142,7 @@ void escrever_graus_arquivo(char *nome_arquivo, int *graus, int tamanho)
 void vertices_isolados(int **matriz) {
     int isolado, count = 0;
 
-    printf("Vértices isolados: \n");
+    printf("Vértices isolados: %d \n", &isolado);
 
     for (int i = 0; i < tamanho_matriz; i++) {
         isolado = 1;
@@ -160,8 +160,8 @@ void vertices_isolados(int **matriz) {
 }
 
 void vertice_sumidouro(int **matriz){
-    int aux = 0; 
-    printf("Vertice(s) sumidouros:\n");
+    int aux = 0;
+    printf("Vertice(s) sumidouros: %d\n", &aux);
     for(int cont = 0; cont < tamanho_matriz; cont++){
         int sumidouro = 1;
         for(int cont2 = 0; cont2 < tamanho_matriz; cont2++){
