@@ -14,6 +14,7 @@ void vertice_sumidouro(int **matriz);
 void vertice_fonte(int **matriz);
 void grafo_complementar(int **matriz, char *nome_arquivo);
 void vertice_multiplo5(int **matriz, char *nome_arquivo);
+//void inverterDirecoes(int **matriz, FILE *arquivo);
 
 int main()
 {
@@ -39,6 +40,19 @@ int main()
         }
     }
 
+    /*FILE *arquivo = fopen("grafo_invertido.txt", "w");
+    if (arquivo == NULL)
+    {
+        printf("Erro ao abrir o arquivo.\n");
+        return 1;
+    }
+
+    // Inverte as direções e escreve no arquivo
+    inverterDirecoes(matriz, arquivo);
+
+    // Fecha o arquivo
+    fclose(arquivo);*/
+
     escrever_graus_arquivo("dados_grafos_graus.txt", graus, tamanho_matriz);
     vertices_isolados(matriz);
     maior_grau = grau_do_maior_vertice(matriz);
@@ -51,8 +65,6 @@ int main()
     vertice_multiplo5(matriz,"dados_grafos_gerados.txt");
     for (i = 0; i < tamanho_matriz; i++)
         free(matriz[i]);
-        free(matriz);
-        free(graus);
 
     return 0;
 }
@@ -142,7 +154,7 @@ void escrever_graus_arquivo(char *nome_arquivo, int *graus, int tamanho)
 void vertices_isolados(int **matriz) {
     int isolado, count = 0;
 
-    printf("Vértices isolados: %d \n", &isolado);
+    printf("Vértices isolados: \n");
 
     for (int i = 0; i < tamanho_matriz; i++) {
         isolado = 1;
@@ -161,7 +173,7 @@ void vertices_isolados(int **matriz) {
 
 void vertice_sumidouro(int **matriz){
     int aux = 0;
-    printf("Vertice(s) sumidouros: %d\n", &aux);
+    printf("Vertice(s) sumidouros: \n");
     for(int cont = 0; cont < tamanho_matriz; cont++){
         int sumidouro = 1;
         for(int cont2 = 0; cont2 < tamanho_matriz; cont2++){
@@ -244,3 +256,43 @@ void vertice_multiplo5(int **matriz, char *nome_arquivo){
     }
     fclose(arquivo);
 }
+
+    /*void inverterDirecoes(int **matriz, FILE *arquivo)
+{
+
+    int *novaMatriz = (int *)malloc(tamanho_matriz * sizeof(int *));
+
+        for (int i = 0; i < tamanho_matriz; i++)
+    {
+        for (int j = 0; j < tamanho_matriz; j++)
+        {
+           novaMatriz[i] = (int *)malloc(tamanho_matriz * sizeof(int));
+        novaMatriz[j] = (int *)malloc(tamanho_matriz * sizeof(int));
+        }
+    }
+
+      
+    for (int i = 0; i < tamanho_matriz; i++)
+    {
+        for (int j = 0; j < tamanho_matriz; j++)
+        {
+            novaMatriz[i][j] = matriz[j][i];
+        }
+    }
+
+    for (int i = 0; i < tamanho_matriz; i++)
+    {
+        for (int j = 0; j < tamanho_matriz; j++)
+        {
+            fprintf(arquivo, "%d ", novaMatriz[i][j]);
+        }
+        fprintf(arquivo, "\n");
+    }
+
+    for (int i = 0; i < tamanho_matriz; i++)
+    {
+        free(novaMatriz[i]);
+    }
+    free(novaMatriz);
+}
+*/
