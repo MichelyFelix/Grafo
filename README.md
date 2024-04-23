@@ -4,7 +4,49 @@
 #### dados_grafo.txt, as questões seguintes ou NA (Não se aplica) quando for necessário:
 
 1. Qual(is) o vértice(s) com maior(es) grau?
+```c
+int grau_do_maior_vertice(int **matriz)
+{
+    int i, j, maior_grau, aux = 0, vertice_com_maior_grau;
+    for (i = 0; i < tamanho_matriz; i++)
+    {
+        for (j = 0; j < tamanho_matriz; j++)
+        {
+            if (matriz[i][j] == 1)
+            {
+                aux++;
+            }
+        }
+        if (aux > maior_grau)
+        {
+            maior_grau = aux;
+            vertice_com_maior_grau = i;
+        }
+        aux = 0;
+    }
+    return vertice_com_maior_grau;
+}
+```
 2. Apresente em um arquivo chamado dados_grafos_graus.txt o número do vértices seguido pelo seu respectivo grau.
+```c
+void escrever_graus_arquivo(char *nome_arquivo, int *graus, int tamanho)
+{
+    FILE *arquivo = fopen(nome_arquivo, "w");
+    if (arquivo == NULL)
+    {
+        printf("Erro ao abrir o arquivo %s\n", nome_arquivo);
+        return;
+    }
+
+    int i;
+    for (i = 0; i < tamanho; i++)
+    {
+        fprintf(arquivo, "Vertice %d: Grau %d\n", i, graus[i]);
+    }
+
+    fclose(arquivo);
+}
+```
 3. Se existir, quais são os vértices isolados?
 ```c
 void vertices_isolados(int **matriz) {
@@ -73,10 +115,10 @@ void vertice_fonte(int **matriz){
     }
     }
    ```
-7. Determine o grau de Emissão e Recepção de cada vértice e os coloque em arquivos chamados de "dados_grafos_emissao.txt" e "dados_grafos_recepcao.txt".
-8. Apresente um arquivo com o grafo complementar da questão;
-9. Inverta a direção de todas as arestas do grafo da questão e apresente-os em um novo arquivo com o nome de "dados_grafos_invertido.txt".
-10. Apresente o grafo complementar e os represente em um arquivo com o nome "dados_grafo_complementar.txt".
+6. Determine o grau de Emissão e Recepção de cada vértice e os coloque em arquivos chamados de "dados_grafos_emissao.txt" e "dados_grafos_recepcao.txt". Não se aplica
+7. Apresente um arquivo com o grafo complementar da questão; repetida
+8. Inverta a direção de todas as arestas do grafo da questão e apresente-os em um novo arquivo com o nome de "dados_grafos_invertido.txt".
+9. Apresente o grafo complementar e os represente em um arquivo com o nome "dados_grafo_complementar.txt".
 ```c
 void grafo_complementar(int **matriz, char *nome_arquivo){
     FILE *arquivo = fopen(nome_arquivo, "w");
@@ -126,5 +168,5 @@ void vertice_multiplo5(int **matriz, char *nome_arquivo){
 }
 
 ```
-12. Encontre o maior clique do grafo da questão.
-13. Verifique se o primeiro e último vértice estão conectados
+11. Encontre o maior clique do grafo da questão.
+12. Verifique se o primeiro e último vértice estão conectados
