@@ -1,7 +1,7 @@
-# Grafo
+<h1> Grafo</h1>
 
-Analise o arquivo dados_grafos.txt, armazenando o grafo em uma estrutura de matriz. Após isto, responda corretamente, em função do grafo produzido a partir de
-dados_grafo.txt, as questões seguintes ou NA (Não se aplica) quando for necessário:
+### Analise o arquivo dados_grafos.txt, armazenando o grafo em uma estrutura de matriz. Após isto, responda corretamente, em função do grafo produzido a partir de
+#### dados_grafo.txt, as questões seguintes ou NA (Não se aplica) quando for necessário:
 
 1. Qual(is) o vértice(s) com maior(es) grau?
 2. Apresente em um arquivo chamado dados_grafos_graus.txt o número do vértices seguido pelo seu respectivo grau.
