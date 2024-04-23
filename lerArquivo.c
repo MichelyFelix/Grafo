@@ -41,7 +41,7 @@ int main()
 
     escrever_graus_arquivo("dados_grafos_graus.txt", graus, tamanho_matriz);
     vertices_isolados(matriz);
- maior_grau = grau_do_maior_vertice(matriz);
+    maior_grau = grau_do_maior_vertice(matriz);
    
     printf("\nO vertice com maior grau: %i\n", maior_grau);
 
